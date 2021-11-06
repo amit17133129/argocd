@@ -1,66 +1,17 @@
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   creationTimestamp: "2021-11-06T08:00:51Z"
-#   generation: 1
-#   labels:
-#     app: apache-web
-#   name: apache-web
-#   namespace: default
-#   resourceVersion: "3252"
-#   uid: a4cec8f6-a1dd-4cdc-8080-fcd83a9ebab6
-# spec:
-#   progressDeadlineSeconds: 600
-#   replicas: 1
-#   revisionHistoryLimit: 10
-#   selector:
-#     matchLabels:
-#       app: apache-web
-#   strategy:
-#     rollingUpdate:
-#       maxSurge: 25%
-#       maxUnavailable: 25%
-#     type: RollingUpdate
-#   template:
-#     metadata:
-#       creationTimestamp: null
-#       labels:
-#         app: apache-web
-#     spec:
-#       containers:
-#       - image: vimal13/apache-webserver-php
-#         imagePullPolicy: Always
-#         name: apache-webserver-php
-#         resources: {}
-#         terminationMessagePath: /dev/termination-log
-#         terminationMessagePolicy: File
-#       dnsPolicy: ClusterFirst
-#       restartPolicy: Always
-#       schedulerName: default-scheduler
-#       securityContext: {}
-#       terminationGracePeriodSeconds: 30
-# status: {}
-
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    deployment.kubernetes.io/revision: "1"
-    kubectl.kubernetes.io/last-applied-configuration: |
-      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"creationTimestamp":"2021-11-06T08:00:51Z","generation":1,"labels":{"app":"apache-web","app.kubernetes.io/instance":"demo-app"},"name":"apache-web","namespace":"default","resourceVersion":"3252","uid":"a4cec8f6-a1dd-4cdc-8080-fcd83a9ebab6"},"spec":{"progressDeadlineSeconds":600,"replicas":1,"revisionHistoryLimit":10,"selector":{"matchLabels":{"app":"apache-web"}},"strategy":{"rollingUpdate":{"maxSurge":"25%","maxUnavailable":"25%"},"type":"RollingUpdate"},"template":{"metadata":{"creationTimestamp":null,"labels":{"app":"apache-web"}},"spec":{"containers":[{"image":"vimal13/apache-webserver-php","imagePullPolicy":"Always","name":"apache-webserver-php","resources":{},"terminationMessagePath":"/dev/termination-log","terminationMessagePolicy":"File"}],"dnsPolicy":"ClusterFirst","restartPolicy":"Always","schedulerName":"default-scheduler","securityContext":{},"terminationGracePeriodSeconds":30}}},"status":{}}
-  creationTimestamp: "2021-11-06T12:36:05Z"
+  creationTimestamp: "2021-11-06T08:00:51Z"
   generation: 1
   labels:
     app: apache-web
-    app.kubernetes.io/instance: demo-app
   name: apache-web
   namespace: default
-  resourceVersion: "2131"
-  uid: a4ab201a-530a-4528-b63f-1ace1b151102
+  resourceVersion: "3252"
+  uid: a4cec8f6-a1dd-4cdc-8080-fcd83a9ebab6
 spec:
   progressDeadlineSeconds: 600
-  replicas: 5
+  replicas: 10
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -88,22 +39,5 @@ spec:
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 30
-status:
-  availableReplicas: 1
-  conditions:
-  - lastTransitionTime: "2021-11-06T12:36:09Z"
-    lastUpdateTime: "2021-11-06T12:36:09Z"
-    message: Deployment has minimum availability.
-    reason: MinimumReplicasAvailable
-    status: "True"
-    type: Available
-  - lastTransitionTime: "2021-11-06T12:36:05Z"
-    lastUpdateTime: "2021-11-06T12:36:09Z"
-    message: ReplicaSet "apache-web-5f54b89fbf" has successfully progressed.
-    reason: NewReplicaSetAvailable
-    status: "True"
-    type: Progressing
-  observedGeneration: 1
-  readyReplicas: 1
-  replicas: 1
-  updatedReplicas: 1
+status: {}
+
