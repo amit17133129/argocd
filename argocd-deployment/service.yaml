@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2021-11-06T08:02:21Z"
+  labels:
+    app: apache-web
+  name: apache-web
+  namespace: default
+  resourceVersion: "3400"
+  uid: 2d1007df-1726-452d-87f1-a5dd06c74484
+spec:
+  clusterIP: 10.105.62.133
+  clusterIPs:
+  - 10.105.62.133
+  externalTrafficPolicy: Cluster
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - nodePort: 31797
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: apache-web
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
