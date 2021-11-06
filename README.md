@@ -138,7 +138,7 @@ Connecting Repository Using HTTPS and Creating Application In ArgoCD:
 First we will head towards repository section and we will add the repository url of GitHub. I have already created GitHub_Repo. In this repository you will find a basic deployment application and the service manifest files as shown in the figure below.
 
 <p align="center">
-  <img width="1000" height="150" src="https://miro.medium.com/max/2000/1*CNcv7l3wZ8DSnGKMrxKXUw.gif">
+  <img width="1000" height="250" src="https://github.com/amit17133129/argocd/blob/main/images/1*SnrQqOCCEItl-dzTH0Dqpg.png?raw=true">
 </p>
 
 This repo contains only deployment and service manifests file which helps us to deploy pods and service. I will add this repo url into the ArgoCD repositor section. After that i will create application as shown in the below gif.
