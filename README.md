@@ -90,7 +90,7 @@ sudo apt install conntrack -y
 Now we have to install minikube with driver=none. As we are not running minikube on virtualbox/vmware so we will use the driver as none.
 
 <p align="center">
-  <img width="1000" height="600" src="https://miro.medium.com/max/2000/1*mGWwxFhjqru7F1_Jw0igMA.gif">
+  <img width="1000" height="600" src="https://github.com/amit17133129/argocd/blob/main/images/minikube-start.gif?raw=true">
 </p>
 
 ```
@@ -106,7 +106,7 @@ Now we will install ArgoCD. Here i am using 2.0.0 version of ArgoCD. You can fol
 
 
 <p align="center">
-  <img width="1000" height="600" src="https://miro.medium.com/max/2000/1*s4tjGOUHp1eg3g1cRAIsvA.gif">
+  <img width="1000" height="600" src="https://github.com/amit17133129/argocd/blob/main/images/install-argocd.gif?raw=true">
 </p>
 
 As you find the pods are in the running state. Now we will move towards checking the service of resource.
@@ -116,5 +116,73 @@ As you find the pods are in the running state. Now we will move towards checking
 </p>
 
 <p align="center">
-  <img width="1000" height="600" src="https://miro.medium.com/max/2000/1*s4tjGOUHp1eg3g1cRAIsvA.gif">
+  <img width="1000" height="600" src="https://github.com/amit17133129/argocd/blob/main/images/editClusterIP-to-NodePort.gif?raw=true">
+</p>
+
+As you can find in the above gif that argocd-server service is running on ClusterIP service. So we will edit the service file of argocd-server and change the service from ClusterIP to NodePort so we can access it via the public ip of the node.
+
+
+<p align="center">
+  <img width="1000" height="600" src="https://github.com/amit17133129/argocd/blob/main/images/opening-ArgoCD.gif?raw=true">
+</p>
+
+To login into ArgoCD take the exposed port of argocd-server service and using public ip address of the vm you can access ArgoCD login page. The default user is `admin` and password you will get by decrypting the sercret as shown in the above gif.
+
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
+Using the above code you can get the password of the admin user of ArgoCD. After login successfully you will get the application page. The application page will helps you to create applications.
+Connecting Repository Using HTTPS and Creating Application In ArgoCD:
+
+First we will head towards repository section and we will add the repository url of GitHub. I have already created GitHub_Repo. In this repository you will find a basic deployment application and the service manifest files as shown in the figure below.
+
+<p align="center">
+  <img width="1000" height="150" src="https://miro.medium.com/max/2000/1*CNcv7l3wZ8DSnGKMrxKXUw.gif">
+</p>
+
+This repo contains only deployment and service manifests file which helps us to deploy pods and service. I will add this repo url into the ArgoCD repositor section. After that i will create application as shown in the below gif.
+
+While adding the repo url you also have to select the path. Here you have to add the folder name in which you have manifest files e.g.argocd-deployment Here i am using the default project but you can create your own project.
+
+While creating application you have to add the following:
+
+1. Application Name.
+2. Project Name (default)
+3. Sync Policy → Manual / Automatic
+   Argo CD has the ability to automatically sync an application when it detects differences between the desired manifests in Git, and the live state in the cluster. A benefit of automatic sync is that CI/CD pipelines no longer need direct access to the Argo CD API server to perform the deployment. Instead, the pipeline makes a commit and push to the Git repository with the changes to the manifests in the tracking Git repo. For more detlails visit here.
+4. Source → GitHub repo of your manifest files.
+5. Path → (folder name in my case argocd-deployment).
+6. Cluster URL → Kubernetes Cluster URL.
+7. NameSpace → default (or create your own namespace manually).
+8. Click On Create.
+
+After creating your application it will look something like this on your dashboard. This means that your application is created successfully.
+
+<p align="center">
+  <img width="1000" height="200" src="https://miro.medium.com/max/700/1*mv01R1q3ZrQeanwmJk9f1w.png">
+</p>
+
+Now when you click on the app then you will go to a page where ArgoCD will create interactive representation of your kubernetes resources.
+
+<p align="center">
+  <img width="1000" height="100" src="https://miro.medium.com/max/700/1*m6odmzvSao6MOVsW1XNesg.png">
+</p>
+
+Now i will scale the deployemnt manually, as ArgoCD tracks each and every moment of the kubernetes cluster. So when the deployment is rescaled then it will automatically changes the representation of pods in the webui. You will find that these newly scaled pod is outof synced i.e., we haven’t commited to GitHUb manifests files so ArgoCd will sync with the chages ou made in manifest files from GitHub and will not sync when you chnage manually.
+
+<p align="center">
+  <img width="1000" height="600" src="https://github.com/amit17133129/argocd/blob/main/images/scale-deploy.gif?raw=true">
+</p>
+
+When you set automatic sync in sync policy while creating the pplication then when you commit in the github manifest files you will see that ArgoCD will automatically launches/destroy pods and other respective resources depends on what you have commited in github manifest file. But when you use manual syn policy then you have to click on sync after updating the resources in github manifest files.
+
+<p align="center">
+  <img width="1000" height="600" src="https://github.com/amit17133129/argocd/blob/main/images/sync-101-replicas.gif?raw=true">
+</p>
+
+Now you can see how argocd is more useful for kubernetes guys. I liked this tool. Comment your views. Hope you liked this article. please like and comment.
+
+<p align="center">
+  <img width="300" height="300" src="https://miro.medium.com/max/996/0*Zy1u5LzwPHuHRUN0.gif">
 </p>
