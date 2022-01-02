@@ -5,7 +5,7 @@ metadata:
   labels:
     app: apache-web
   name: apache-web
-  namespace: default
+  namespace: flux-demo
   resourceVersion: "3400"
   uid: 2d1007df-1726-452d-87f1-a5dd06c74484
 spec:
