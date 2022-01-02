@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: "2021-11-06T08:00:51Z"
+  generation: 1
+  labels:
+    app: apache-web
+  name: apache-web
+  namespace: default
+  resourceVersion: "3252"
+  uid: a4cec8f6-a1dd-4cdc-8080-fcd83a9ebab6
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 19
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: apache-web
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: apache-web
+    spec:
+      containers:
+      - image: vimal13/apache-webserver-php
+        imagePullPolicy: Always
+        name: apache-webserver-php
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status: {}
