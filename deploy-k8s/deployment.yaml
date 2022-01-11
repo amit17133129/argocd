@@ -17,7 +17,7 @@ spec:
     matchLabels:
       app: apache-web
   strategy:
-    rollingUpdate:
+    rollingUpdate: 
       maxSurge: 25%
       maxUnavailable: 25%
     type: RollingUpdate
